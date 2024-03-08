@@ -2,6 +2,7 @@ import express from "express";
 import { conn, queryAsync } from "../dbconnect";
 import bodyParser from 'body-parser';
 import { movie } from "../model/movie";
+import axios from "axios";
 export const router = express.Router();
 
 
@@ -198,3 +199,34 @@ router.post("/movie-edit", (req, res) => {
     });
   });
 });
+
+
+
+//เอาหนังเข้า
+router.post('/sertMovie', async (req, res) => {
+  try {
+    const receivedData = req.body;
+    const movie: movie = receivedData;
+
+    const sql = "INSERT INTO `movies` (`movie_name`, `plot`, `poster`, `genre`) VALUES (?,?,?,?)";
+    const result = await queryAsync(sql, [
+      movie.movie_name,
+      movie.plot,
+      movie.poster,
+      movie.genre,
+    ]);
+
+    console.log('Inserted movie data:', {
+      movie_name: movie.movie_name,
+      plot: movie.plot,
+      poster: movie.poster,
+      genre: movie.genre,
+    });
+    res.status(200).json({ message: 'Data received successfully' });
+  } catch (error :any) {
+    console.error('Error processing the request:', error);
+
+    res.status(500).json({ error: 'Internal server error', details: error.message });
+  }
+});
+

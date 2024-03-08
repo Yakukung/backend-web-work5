@@ -11,3 +11,4 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.use("/", movies);
+app.use("movie-edit/sert-movie", movies);

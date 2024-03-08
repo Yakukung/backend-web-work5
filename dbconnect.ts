@@ -1,5 +1,11 @@
+// ../dbconnect.ts
+
 import mysql from "mysql";
 import util from "util";
+interface QueryAsyncFunction {
+  (sql: string, values?: any): Promise<any>;
+}
+
 export const conn = mysql.createPool({
   connectionLimit: 10,
   host: "localhost",
@@ -8,9 +14,7 @@ export const conn = mysql.createPool({
   database: "web_work5",
 });
 
-export { mysql };
-
-export const queryAsync = util.promisify(conn.query).bind(conn);
+export const queryAsync: QueryAsyncFunction = util.promisify(conn.query).bind(conn);
 
 
 // import mysql from "mysql";
