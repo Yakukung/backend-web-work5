@@ -6,3 +6,5 @@ export interface movie {
     genre: string;
 
   }
+
+  
