@@ -6,6 +6,7 @@ import axios from "axios";
 export const router = express.Router();
 
 
+
 router.post("/", (req, res) => {
   conn.query('select * from movies', (err, result, fields)=>{
     res.json(result);

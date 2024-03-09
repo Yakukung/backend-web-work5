@@ -12,6 +12,13 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+
+app.use(
+  cors({
+    origin: "*",
+  })
+);
+
 app.use("/", movies);
 app.use("/persons", persons); 
 app.use("/creators", creators); 
